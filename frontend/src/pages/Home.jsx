@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { get } from "../api.js";
 import { hero, vision } from "../content.js";
@@ -12,12 +12,20 @@ export default function Home() {
   const [clusters, setClusters] = useState([]);
   const [loading, setLoading] = useState(true);
   const go = useNavigate();
+  const videoRef = useRef(null);
 
   useEffect(() => {
     get("/clusters/")
       .then(setClusters)
       .catch(() => {})
       .finally(() => setLoading(false));
+  }, []);
+
+  // respect reduced-motion: show the poster frame instead of playing
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      videoRef.current?.pause();
+    }
   }, []);
 
   const totalDesks = clusters.reduce((sum, c) => sum + (c.desk_count || 0), 0);
@@ -70,27 +78,46 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="h-panel" aria-label="Practice clusters">
-            <h2>Five practice clusters</h2>
-            <ul>
-              {loading
-                ? Array.from({ length: 5 }).map((_, i) => (
-                    <li key={i} className="skeleton" />
-                  ))
-                : clusters.map((c, i) => (
-                    <li key={c.slug} style={{ "--i": i }}>
-                      <Link to={`/what-we-broker?cluster=${c.slug}`}>
-                        <span className="h-num">0{i + 1}</span>
-                        <span className="h-name">{c.name}</span>
-                        <span className="h-count">{c.desk_count}</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z" />
-                        </svg>
-                      </Link>
-                    </li>
-                  ))}
-            </ul>
-          </aside>
+          <div className="h-media">
+            <div className="h-video">
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/hero-handshake-poster.jpg"
+                aria-label="Two people shaking hands to close a deal"
+              >
+                <source src="/hero-handshake.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <div className="wrap">
+            <aside className="h-panel" aria-label="Practice clusters">
+              <h2>Five practice clusters</h2>
+              <ul>
+                {loading
+                  ? Array.from({ length: 5 }).map((_, i) => (
+                      <li key={i} className="skeleton" />
+                    ))
+                  : clusters.map((c, i) => (
+                      <li key={c.slug} style={{ "--i": i }}>
+                        <Link to={`/what-we-broker?cluster=${c.slug}`}>
+                          <span className="h-num">0{i + 1}</span>
+                          <span className="h-name">{c.name}</span>
+                          <span className="h-count">{c.desk_count}</span>
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z" />
+                          </svg>
+                        </Link>
+                      </li>
+                    ))}
+              </ul>
+            </aside>
         </div>
       </section>
 
