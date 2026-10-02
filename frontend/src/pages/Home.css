@@ -161,6 +161,8 @@
 /* ---------- Hero video (right side) ---------- */
 .h-media {
   position: relative;
+  align-self: start;      /* pin to the top of the hero row instead of centring */
+  margin-top: 0.5rem;
   animation: riseIn 0.8s 0.3s ease both;
 }
 /* gold offset frame behind the video */
@@ -385,7 +387,7 @@
   .h-hero { padding: 1.5rem 0 6.5rem; }
   .h-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .h-media::before { transform: translate(10px, 10px); }
-  .h-media { margin-right: 10px; }
+  .h-media { margin-right: 10px; margin-top: 0; }
   .h-badge-a { left: 0.75rem; }
   .h-badge-b { right: 0.75rem; }
   .h-panel { margin-top: 2rem; }
