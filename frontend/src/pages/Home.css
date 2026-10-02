@@ -65,7 +65,7 @@
 /* ---------- Hero ---------- */
 .h-hero {
   position: relative; overflow: hidden;
-  padding: 5rem 0 8rem;
+  padding: 2rem 0 7rem;
   color: #fff;
   background:
     radial-gradient(600px 400px at 85% 10%, rgba(10, 91, 211, 0.45), transparent 70%),
@@ -223,7 +223,7 @@
 
 /* ---------- Clusters panel (glass strip under the hero) ---------- */
 .h-panel {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   padding: 1.5rem 1.75rem 1.75rem; border-radius: 24px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -324,11 +324,11 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .h-hero { padding: 3.5rem 0 7rem; }
+  .h-hero { padding: 1.5rem 0 6.5rem; }
   .h-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .h-media::before { transform: translate(10px, 10px); }
   .h-media { margin-right: 10px; }
-  .h-panel { margin-top: 2.5rem; }
+  .h-panel { margin-top: 2rem; }
   .h-vision { grid-template-columns: 1fr; gap: 1.5rem; padding: 4rem 0; }
   .h-cta { flex-direction: column; align-items: flex-start; padding: 2rem; }
 }
