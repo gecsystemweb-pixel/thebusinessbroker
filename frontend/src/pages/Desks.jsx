@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { get } from "../api.js";
 import Reveal from "./Reveal.jsx";
@@ -12,12 +12,20 @@ export default function Desks() {
   const [clusters, setClusters] = useState([]);
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(true);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     Promise.all([get("/desks/"), get("/clusters/")])
       .then(([d, c]) => { setDesks(d); setClusters(c); })
       .catch(() => setErr(true))
       .finally(() => setLoading(false));
+  }, []);
+
+  // respect reduced-motion: show the poster frame instead of playing
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      videoRef.current?.pause();
+    }
   }, []);
 
   const set = (k, v) => {
@@ -55,13 +63,32 @@ export default function Desks() {
       {/* ---------------- HERO ---------------- */}
       <section className="d-hero">
         <div className="wrap d-hero-in">
-          <span className="eyebrow">Our desks</span>
-          <h1>What we broker</h1>
-          <p className="d-lede">
-            Every desk carries its own market knowledge, and most substantial
-            mandates draw on more than one. When they do, you still deal with a
-            single lead broker rather than five departments.
-          </p>
+          <div className="d-copy">
+            <span className="eyebrow">Our desks</span>
+            <h1>What we broker</h1>
+            <p className="d-lede">
+              Every desk carries its own market knowledge, and most substantial
+              mandates draw on more than one. When they do, you still deal with a
+              single lead broker rather than five departments.
+            </p>
+          </div>
+
+          <div className="d-media">
+            <div className="d-video">
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/desks-banner-poster.jpg"
+                aria-label="A team animating a holographic site"
+              >
+                <source src="/desks-banner.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
         </div>
       </section>
 
