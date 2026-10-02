@@ -6,4 +6,7 @@ backend/media/
 backend/staticfiles/
 backend/frontend_dist/
 .env
+.env.local
+.env.*.local
 .venv/
+.vercel/
