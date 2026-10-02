@@ -16,7 +16,7 @@ This guide explains how to deploy the frontend to Vercel for testing.
 3. Import this GitHub repository: `gecsystemweb-pixel/thebusinessbroker`
 4. Configure the project:
    - **Framework Preset**: Other
-   - **Root Directory**: `frontend`
+   - **Root Directory**: `frontend` (Note: vercel.json is now in the frontend directory)
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 5. Add Environment Variables:
