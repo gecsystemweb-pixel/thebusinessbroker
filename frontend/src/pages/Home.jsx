@@ -106,6 +106,24 @@ export default function Home() {
                 </button>
               ))}
             </div>
+
+            <div className="h-actions">
+              <Link className="btn-gold" to="/contact">
+                Talk to a broker
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z" />
+                </svg>
+              </Link>
+              <Link className="btn-ghost" to="/what-we-broker">
+                Explore our desks
+              </Link>
+            </div>
+
+            <ul className="h-trust">
+              <li>One lead broker on every mandate</li>
+              <li>Specialist desks across five clusters</li>
+              <li>Buying, selling and placing</li>
+            </ul>
           </div>
 
           <div className="h-media">
@@ -117,12 +135,24 @@ export default function Home() {
                 loop
                 playsInline
                 preload="metadata"
-                poster="/hero-handshake-poster.jpg"
-                aria-label="Two people shaking hands to close a deal"
+                poster="/hero-banner-poster.jpg"
+                aria-label="A broker holding a glass crystal showing property, finance and growth icons"
               >
-                <source src="/hero-handshake.mp4" type="video/mp4" />
+                <source src="/hero-banner.mp4" type="video/mp4" />
               </video>
             </div>
+
+            <span className="h-badge h-badge-a">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+              </svg>
+              Single lead broker
+            </span>
+            {totalDesks > 0 && (
+              <span className="h-badge h-badge-b">
+                <strong>{totalDesks}</strong> specialist desks
+              </span>
+            )}
           </div>
         </div>
 
