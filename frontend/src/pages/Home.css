@@ -89,6 +89,50 @@
 }
 .h-hero > .wrap:not(.h-hero-grid) { position: relative; z-index: 1; }
 
+/* ---------- Floating glass bubbles ---------- */
+.h-bubbles {
+  position: absolute; inset: 0; z-index: 0;
+  container-type: size;
+  overflow: hidden; pointer-events: none;
+}
+.bubble {
+  position: absolute; top: 0;
+  transform: translateY(-140px);
+  animation: bubbleFall linear infinite;
+  will-change: transform;
+}
+.bubble i {
+  position: absolute; inset: 0; display: block; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.55) 0, rgba(255,255,255,0.12) 18%, transparent 38%),
+    radial-gradient(circle at 70% 78%, rgba(255, 224, 102, 0.28) 0, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.16) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    inset 0 0 14px rgba(255, 255, 255, 0.22),
+    inset -6px -8px 16px rgba(10, 91, 211, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(2px);
+  animation: bubbleSway var(--sway-dur, 8s) ease-in-out infinite alternate;
+}
+/* small specular highlight */
+.bubble i::after {
+  content: ""; position: absolute;
+  top: 14%; left: 22%; width: 22%; height: 12%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  filter: blur(1px);
+  transform: rotate(-35deg);
+}
+@keyframes bubbleFall {
+  from { transform: translateY(-140px); }
+  to   { transform: translateY(calc(100cqh + 40px)); }
+}
+@keyframes bubbleSway {
+  from { transform: translateX(calc(var(--sway, 20px) * -1)); }
+  to   { transform: translateX(var(--sway, 20px)); }
+}
+
 /* staggered entrance for the hero copy */
 .h-copy > * { animation: riseIn 0.7s ease both; }
 .h-copy > :nth-child(1) { animation-delay: 0.05s; }
@@ -300,4 +344,5 @@
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
   .h-copy > *, .h-panel, .h-panel li, .h-media { animation: none; }
+  .h-bubbles { display: none; }
 }

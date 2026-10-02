@@ -7,6 +7,15 @@ import "./Home.css";
 
 const SUGGESTIONS = ["Land", "Cocoa", "Insurance", "Hotel", "Carbon"];
 
+// size (px), left (%), fall duration (s), delay (s, negative = already mid-fall), sway (px)
+const BUBBLES = [
+  [64, 4, 22, -3, 26],   [28, 11, 16, -11, 14],  [96, 19, 30, -18, 34],
+  [40, 27, 19, -7, 18],  [22, 34, 14, -2, 12],   [72, 43, 26, -22, 30],
+  [34, 51, 18, -13, 16], [110, 58, 34, -9, 38],  [26, 66, 15, -5, 14],
+  [56, 73, 24, -16, 24], [38, 81, 20, -1, 18],   [84, 88, 28, -24, 32],
+  [24, 94, 13, -8, 12],  [48, 47, 21, -19, 20],
+];
+
 export default function Home() {
   const [q, setQ] = useState("");
   const [clusters, setClusters] = useState([]);
@@ -37,6 +46,27 @@ export default function Home() {
     <main className="home">
       {/* ---------------- HERO ---------------- */}
       <section className="h-hero">
+        {/* floating glass bubbles (decorative) */}
+        <div className="h-bubbles" aria-hidden="true">
+          {BUBBLES.map(([size, left, dur, delay, sway], i) => (
+            <span
+              key={i}
+              className="bubble"
+              style={{
+                left: `${left}%`,
+                width: size,
+                height: size,
+                animationDuration: `${dur}s`,
+                animationDelay: `${delay}s`,
+                "--sway": `${sway}px`,
+                "--sway-dur": `${6 + (i % 4) * 1.5}s`,
+              }}
+            >
+              <i />
+            </span>
+          ))}
+        </div>
+
         <div className="wrap h-hero-grid">
           <div className="h-copy">
             <span className="eyebrow">Top Business Brokers</span>
