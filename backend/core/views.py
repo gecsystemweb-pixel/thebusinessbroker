@@ -40,7 +40,7 @@ class SiteInfo(APIView):
         return Response({"name":"Top Business Brokers Consult Limited","registration":"CS054812019",
             "incorporated":"19 March 2007","company_type":"Private limited company",
             "address":"Near Liberation Christian Centre, Bomso, Kumasi, Ashanti Region, Ghana","post":"P. O. Box UP 629, KNUST, Kumasi",
-            "phones":["+233 (0) 243 555 882","+233 (0) 243 257 214"],"tin":"C0022801235","auditors":"Robert Ofori and Partners","email":""})
+            "phones":["+233 (0) 243 555 882","+233 (0) 243 257 214"],"tin":"C0022801235","auditors":"Bridgewater Consulting, Kumasi","email":""})
 
 
 KNOWN_ROUTES = {"", "about", "what-we-broker", "how-we-work", "network", "initiatives", "contact"}
