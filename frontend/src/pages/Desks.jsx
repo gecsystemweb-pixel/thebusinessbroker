@@ -14,11 +14,20 @@ export default function Desks() {
   const [loading, setLoading] = useState(true);
   const videoRef = useRef(null);
 
-  useEffect(() => {
+  const fetchData = () => {
+    setLoading(true);
+    setErr(null);
     Promise.all([get("/desks/"), get("/clusters/")])
       .then(([d, c]) => { setDesks(d); setClusters(c); })
-      .catch(() => setErr(true))
+      .catch(err => {
+        console.error("Failed to load desks:", err);
+        setErr(err.message || err);
+      })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   // respect reduced-motion: show the poster frame instead of playing
@@ -51,7 +60,7 @@ export default function Desks() {
   const message = loading
     ? "Loading desks…"
     : err
-    ? "The desks could not be loaded. Please refresh, or call us."
+    ? err
     : shown.length === 1
     ? "One desk matches."
     : q || cl
@@ -134,7 +143,15 @@ export default function Desks() {
               <div key={i} className="d-skel" />
             ))}
           </div>
-        ) : !err && shown.length === 0 ? (
+        ) : err ? (
+          <div className="d-empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+            </svg>
+            <p>{err || "The desks could not be loaded. Please try again or call us."}</p>
+            <button className="btn-gold" onClick={fetchData}>Try again</button>
+          </div>
+        ) : shown.length === 0 ? (
           <div className="d-empty">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1014 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z" />

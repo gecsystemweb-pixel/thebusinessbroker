@@ -8,8 +8,23 @@ import "./About.css";
 
 export default function About() {
   const [dirs, setDirs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchDirectors = () => {
+    setLoading(true);
+    setError(null);
+    get("/people/?kind=director")
+      .then(setDirs)
+      .catch(err => {
+        console.error("Failed to load directors:", err);
+        setError(err.message || err);
+      })
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
-    get("/people/?kind=director").then(setDirs).catch(() => {});
+    fetchDirectors();
   }, []);
 
   return (
@@ -131,11 +146,26 @@ export default function About() {
         </Reveal>
         <Reveal delay={100}>
           <div className="a-people">
-            <div className="a-bench">
-              {dirs.map(p => (
-                <PersonCard key={p.name} p={p} />
-              ))}
-            </div>
+            {error ? (
+              <div className="a-error">
+                <p>{error || "Our leadership could not be loaded."}</p>
+                <button className="btn-gold" onClick={fetchDirectors}>
+                  Try again
+                </button>
+              </div>
+            ) : loading ? (
+              <div className="a-bench" aria-hidden="true">
+                {[0, 1, 2].map(i => (
+                  <div key={i} className="a-skeleton" />
+                ))}
+              </div>
+            ) : (
+              <div className="a-bench">
+                {dirs.map(p => (
+                  <PersonCard key={p.name} p={p} />
+                ))}
+              </div>
+            )}
             <aside className="a-facts">
               <h3>Registered particulars</h3>
               <ul>

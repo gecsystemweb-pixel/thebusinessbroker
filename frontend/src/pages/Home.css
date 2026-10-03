@@ -299,6 +299,18 @@
   content: ""; position: absolute; left: 0; bottom: 0;
   width: 32px; height: 2px; border-radius: 2px; background: var(--gold-grad);
 }
+.h-panel-error {
+  padding: 1rem 0;
+  text-align: center;
+}
+.h-panel-error p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+.h-panel-error .btn-gold {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
+}
 .h-panel ul {
   list-style: none; margin: 0; padding: 0;
   display: grid; gap: 0.5rem;

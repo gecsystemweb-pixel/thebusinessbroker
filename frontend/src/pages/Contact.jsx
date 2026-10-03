@@ -35,6 +35,7 @@ export default function Contact() {
     } catch (x) {
       setErrs(x.data || {});
       setState(x.status === 429 ? "throttled" : "error");
+      console.error("Form submission error:", x);
     }
   };
 

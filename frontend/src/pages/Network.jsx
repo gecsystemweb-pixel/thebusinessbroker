@@ -43,11 +43,20 @@ export default function Network() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
 
-  useEffect(() => {
+  const fetchAdvisers = () => {
+    setLoading(true);
+    setErr(null);
     get("/people/?kind=adviser")
       .then(setPeople)
-      .catch(() => setErr(true))
+      .catch(err => {
+        console.error("Failed to load advisers:", err);
+        setErr(err.message || err);
+      })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchAdvisers();
   }, []);
 
   return (
@@ -72,9 +81,10 @@ export default function Network() {
       {/* ---------------- ADVISERS ---------------- */}
       <section className="wrap n-advisers">
         {err && (
-          <p className="n-empty" role="alert">
-            The advisers could not be loaded. Please refresh the page.
-          </p>
+          <div className="n-empty" role="alert">
+            <p>{err || "The advisers could not be loaded. Please try again."}</p>
+            <button className="btn-gold" onClick={fetchAdvisers}>Try again</button>
+          </div>
         )}
         {loading && !err && (
           <div className="n-bench" aria-hidden="true">

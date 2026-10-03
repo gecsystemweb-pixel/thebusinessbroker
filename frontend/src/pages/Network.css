@@ -97,10 +97,19 @@
   animation: nShimmer 1.4s linear infinite;
 }
 .n-empty {
-  margin: 0; padding: 1.1rem 1.4rem; border-radius: 14px;
-  color: var(--navy-900); font-weight: 500;
+  margin: 0; padding: 2rem; border-radius: 14px;
+  text-align: center;
   background: rgba(232, 163, 23, 0.1);
   border-left: 3px solid var(--gold-500);
+}
+.n-empty p {
+  margin: 0 0 1rem;
+  color: var(--navy-900);
+  font-weight: 500;
+}
+.n-empty .btn-gold {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
 }
 @keyframes nShimmer { to { background-position: -200% 0; } }
 
