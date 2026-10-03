@@ -149,6 +149,7 @@ nav a.active { color: var(--blue-500); } /* NavLink adds .active for you */
 /* ---------- Mobile ---------- */
 @media (max-width: 860px) {
   .menu-btn { display: flex; }
+  .brand span { display: none; }
 
   nav {
     position: absolute;
