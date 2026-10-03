@@ -30,11 +30,21 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  // respect reduced-motion: show the poster frame instead of playing
+  // autoplay fix: React doesn't reliably set the `muted` attribute, so browsers
+  // block autoplay on client-side navigation. Force muted, then call play().
   useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      videoRef.current?.pause();
+      v.pause();
+      return;
     }
+    const tryPlay = () => v.play()?.catch(() => {});
+    tryPlay();
+    v.addEventListener("canplay", tryPlay, { once: true });
+    return () => v.removeEventListener("canplay", tryPlay);
   }, []);
 
   const totalDesks = clusters.reduce((sum, c) => sum + (c.desk_count || 0), 0);
