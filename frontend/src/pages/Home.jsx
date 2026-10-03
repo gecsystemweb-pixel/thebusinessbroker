@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { get } from "../api.js";
 import { hero, vision } from "../content.js";
+import { useToast } from "../ToastContext.jsx";
 import Reveal from "./Reveal.jsx";
 import "./Home.css";
 
@@ -23,6 +24,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const go = useNavigate();
   const videoRef = useRef(null);
+  const { addToast } = useToast();
 
   const fetchClusters = () => {
     setLoading(true);
@@ -31,7 +33,9 @@ export default function Home() {
       .then(setClusters)
       .catch(err => {
         console.error("Failed to load clusters:", err);
-        setError(err.message || err);
+        const errorMsg = err.message || err;
+        setError(errorMsg);
+        addToast(errorMsg, "error");
       })
       .finally(() => setLoading(false));
   };

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { get } from "../api.js";
 import S from "../data/static.json";
+import { useToast } from "../ToastContext.jsx";
 import Reveal from "./Reveal.jsx";
 import "./Network.css";
 
@@ -42,6 +43,7 @@ export default function Network() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
+  const { addToast } = useToast();
 
   const fetchAdvisers = () => {
     setLoading(true);
@@ -50,7 +52,9 @@ export default function Network() {
       .then(setPeople)
       .catch(err => {
         console.error("Failed to load advisers:", err);
-        setErr(err.message || err);
+        const errorMsg = err.message || err;
+        setErr(errorMsg);
+        addToast(errorMsg, "error");
       })
       .finally(() => setLoading(false));
   };

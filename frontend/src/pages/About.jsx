@@ -3,6 +3,7 @@ import { get } from "../api.js";
 import S from "../data/static.json";
 import { vision, mission, values } from "../content.js";
 import { PersonCard } from "./Network.jsx";
+import { useToast } from "../ToastContext.jsx";
 import Reveal from "./Reveal.jsx";
 import "./About.css";
 
@@ -10,6 +11,7 @@ export default function About() {
   const [dirs, setDirs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToast } = useToast();
 
   const fetchDirectors = () => {
     setLoading(true);
@@ -18,7 +20,9 @@ export default function About() {
       .then(setDirs)
       .catch(err => {
         console.error("Failed to load directors:", err);
-        setError(err.message || err);
+        const errorMsg = err.message || err;
+        setError(errorMsg);
+        addToast(errorMsg, "error");
       })
       .finally(() => setLoading(false));
   };

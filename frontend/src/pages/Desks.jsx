@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { get } from "../api.js";
+import { useToast } from "../ToastContext.jsx";
 import Reveal from "./Reveal.jsx";
 import "./Desks.css";
 
@@ -13,6 +14,7 @@ export default function Desks() {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(true);
   const videoRef = useRef(null);
+  const { addToast } = useToast();
 
   const fetchData = () => {
     setLoading(true);
@@ -21,7 +23,9 @@ export default function Desks() {
       .then(([d, c]) => { setDesks(d); setClusters(c); })
       .catch(err => {
         console.error("Failed to load desks:", err);
-        setErr(err.message || err);
+        const errorMsg = err.message || err;
+        setErr(errorMsg);
+        addToast(errorMsg, "error");
       })
       .finally(() => setLoading(false));
   };

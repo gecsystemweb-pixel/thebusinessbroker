@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { get, post } from "../api.js";
+import { useToast } from "../ToastContext.jsx";
 import Reveal from "./Reveal.jsx";
 import "./Contact.css";
 
@@ -18,9 +19,15 @@ export default function Contact() {
   const [f, setF] = useState({ name: "", contact: "", desk: "", message: "", website: "" });
   const [state, setState] = useState("idle");
   const [errs, setErrs] = useState({});
+  const { addToast } = useToast();
 
   useEffect(() => {
-    get("/desks/").then(setDesks).catch(() => {});
+    get("/desks/")
+      .then(setDesks)
+      .catch(err => {
+        console.error("Failed to load desks:", err);
+        addToast(err.message || "Could not load desks", "error");
+      });
   }, []);
 
   const on = k => e => setF({ ...f, [k]: e.target.value });
@@ -32,10 +39,16 @@ export default function Contact() {
     try {
       await post("/enquiries/", { ...f, desk: f.desk || null });
       setState("done");
+      addToast("Enquiry sent successfully! We'll be in touch soon.", "success");
     } catch (x) {
       setErrs(x.data || {});
       setState(x.status === 429 ? "throttled" : "error");
       console.error("Form submission error:", x);
+      if (x.status === 429) {
+        addToast("Too many enquiries. Please call us instead.", "error");
+      } else if (!Object.keys(x.data || {}).length) {
+        addToast(x.message || "Could not send enquiry. Please try again.", "error");
+      }
     }
   };
 
