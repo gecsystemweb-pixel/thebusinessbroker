@@ -385,7 +385,17 @@
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .h-hero { padding: 1.5rem 0 6.5rem; }
-  .h-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .h-hero-grid { grid-template-columns: 1fr; gap: 0; }
+
+  /* mobile order: text -> video + buttons -> search -> chips -> trust points */
+  .h-copy { display: contents; }
+  .h-copy > .eyebrow  { order: 1; justify-self: start; }
+  .h-copy > h1        { order: 2; }
+  .h-copy > .h-sub    { order: 3; }
+  .h-media            { order: 4; margin-bottom: 2.25rem; }
+  .h-copy > .h-search { order: 5; }
+  .h-copy > .h-chips  { order: 6; }
+  .h-copy > .h-trust  { order: 7; }
   .h-stage::before { transform: translate(10px, 10px); }
   .h-media { margin-right: 10px; margin-top: 0; }
   .h-badge-a { left: 0.75rem; }
