@@ -107,18 +107,6 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="h-actions">
-              <Link className="btn-gold" to="/contact">
-                Talk to a broker
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z" />
-                </svg>
-              </Link>
-              <Link className="btn-ghost" to="/what-we-broker">
-                Explore our desks
-              </Link>
-            </div>
-
             <ul className="h-trust">
               <li>One lead broker on every mandate</li>
               <li>Specialist desks across five clusters</li>
@@ -127,6 +115,7 @@ export default function Home() {
           </div>
 
           <div className="h-media">
+            <div className="h-stage">
             <div className="h-video">
               <video
                 ref={videoRef}
@@ -153,6 +142,19 @@ export default function Home() {
                 <strong>{totalDesks}</strong> specialist desks
               </span>
             )}
+            </div>
+
+              <div className="h-actions">
+                <Link className="btn-gold" to="/contact">
+                  Talk to a broker
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z" />
+                  </svg>
+                </Link>
+                <Link className="btn-ghost" to="/what-we-broker">
+                  Explore our desks
+                </Link>
+              </div>
           </div>
         </div>
 
