@@ -79,6 +79,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Top Business Brokers Consult Limited.
             Registered in Ghana, CS054812019.
           </p>
+          <div className="foot-bottom-links">
+            <Link to="/privacy">Privacy Policy</Link>
+          </div>
           <a
             href="#top"
             className="to-top"

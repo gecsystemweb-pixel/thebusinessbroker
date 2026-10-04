@@ -166,6 +166,18 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .foot-bottom p { margin: 0; }
+.foot-bottom-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.foot-bottom-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.foot-bottom-links a:hover {
+  color: var(--gold-300);
+}
 
 /* back-to-top pill, same slide-in-gold trick as the navbar CTA */
 .to-top {
@@ -209,7 +221,15 @@
 }
 @media (max-width: 540px) {
   .foot-grid { grid-template-columns: 1fr; }
-  .foot-bottom { flex-direction: column; align-items: flex-start; }
+  .foot-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .foot-bottom-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

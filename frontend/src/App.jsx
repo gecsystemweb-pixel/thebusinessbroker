@@ -9,7 +9,7 @@ import AdminDesks from "./admin/Desks.jsx";
 import AdminPeople from "./admin/People.jsx";
 import AdminEnquiries from "./admin/Enquiries.jsx";
 import Home from "./pages/Home.jsx"; import Desks from "./pages/Desks.jsx"; import About from "./pages/About.jsx";
-import How from "./pages/How.jsx"; import Network from "./pages/Network.jsx"; import Initiatives from "./pages/Initiatives.jsx"; import Contact from "./pages/Contact.jsx";
+import How from "./pages/How.jsx"; import Network from "./pages/Network.jsx"; import Initiatives from "./pages/Initiatives.jsx"; import Contact from "./pages/Contact.jsx"; import Privacy from "./pages/Privacy.jsx";
 
 const Soon = ({ title }) => <main className="wrap section"><h1>{title}</h1><p className="lede">This page is next in the build.</p></main>;
 
@@ -27,6 +27,7 @@ export default function App() {
           <Route path="/network" element={<Network/>}/>
           <Route path="/initiatives" element={<Initiatives/>}/>
           <Route path="/contact" element={<Contact/>}/>
+          <Route path="/privacy" element={<Privacy/>}/>
           <Route path="/admin" element={<AdminLayout/>}>
             <Route index element={<Dashboard/>}/>
             <Route path="desks" element={<AdminDesks/>}/>
