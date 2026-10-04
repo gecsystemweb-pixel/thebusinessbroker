@@ -29,4 +29,4 @@ export const stages = [
 export const nav = [
  { label:"About us", to:"/about" }, { label:"What we broker", to:"/what-we-broker" }, { label:"How we work", to:"/how-we-work" },
  { label:"Our network", to:"/network" }, { label:"Our initiatives", to:"/initiatives" }, { label:"Contact", to:"/contact" },
- { label:"Privacy", to:"/privacy" }];
+ { label:"Privacy", to:"/privacy" }, { label:"Terms", to:"/terms" }];

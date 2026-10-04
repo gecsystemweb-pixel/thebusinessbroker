@@ -81,6 +81,7 @@ export default function Footer() {
           </p>
           <div className="foot-bottom-links">
             <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
           </div>
           <a
             href="#top"
